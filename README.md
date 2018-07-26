@@ -106,6 +106,6 @@ ou
 Caso queiramos executar em background
 
 
-Por fim basta acessar a url http://<servidor>:80.
+Por fim basta acessar a url http:localhost:80.
 
 
