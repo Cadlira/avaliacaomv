@@ -14,7 +14,7 @@ A arquitetura consiste de um total de seis projetos, sendo eles:
 - **web-ui:**
 	- Por fim foi disponibilizado um projeto web, desenvolvido em Angular 4 para realizar as chamadas na API.
 
-###Solicitações não atendidas
+### Solicitações não atendidas
 Das tecnologias/frameworks solicitados na avaliação existem algumas das quais eu nunca havia trabalhado, que foram: Spring Oauth2, JPA Specification e Swagger.
 
 E por problemas de tempo para implementação (mesmo sendo 7 dias para entrega essa semana foi um pouco complicada).
@@ -25,7 +25,7 @@ Dexando as desculpas de lado, vamos para o que não foi atendido:
 - **Swagger:** Apesar de está implementado no serviço user-rs, o mesmo não está 100% funcional, pois, embora esteja listando os serviços disponíveis, a execução do serviço pela interface está apresentando erro de autenticação.
 - **Internacionalização:** Mesmo já trabalhando com internacionalização i18n em todos os projetos, acabei não adicionado internacionalização nas interfaces WEB (uaa-server e web-ui). No uaa-server utilizaria a internacionalização através de JQuery i18n e no web-ui utilizaria a internacionalização do proprio angular [Angular i18n](https://angular.io/guide/i18n).
 
-###Execução dos serviços
+### Execução dos serviços
 Todos os serviços foram diponibilizados como imagens Docker publicadas no [Docker Hub](https://hub.docker.com/r/leolira/).
 
 Nesse repositório foi disponibilizado um arquivo "docker-compose.yml" confome abaixo:
