@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../img/favicon.ico">
+
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+
+        <h2 class="form-signin-heading">Confirme acesso</h2>
+		Confirma acesso as funções do sistema <b><span id='sistema'></span></b>   
+		<br><br>
+		
+	  <form id="confirmationForm" name="confirmationForm" action="authorize" method="post">
+        <input name="user_oauth_approval" id="user_oauth_approval" value="false" type="hidden"/>
+        <button type="button" id="autorizar" class="btn btn-primary">Autorizar</button> <button type="button" id="negar" class="btn btn-danger">Negar</button>
+      </form>
+      
+		      
+    </div> <!-- /container -->
+
+	<script src="../js/jquery-1.11.1.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/authorize.js"></script>
+   
+  </body>
+</html>

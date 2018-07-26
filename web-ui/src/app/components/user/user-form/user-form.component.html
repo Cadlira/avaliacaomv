@@ -1,0 +1,50 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="alert alert-success" *ngIf="okMsg">{{okMsg}}</div>
+  <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+  <div class="col-md-12">
+    <h1 class="page-header">
+      Novo Usuário</h1>
+  </div>
+  <div class="col-md-12">
+    <form #form="ngForm" autocomplete="off">
+      <div class="form-group">
+        <label for="name">Nome:</label>
+        <input class="form-control" name="name" [(ngModel)]="user.name" placeholder="Informe o nome..." required type="text" autofocus/>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input class="form-control" name="email" [(ngModel)]="user.email" placeholder="Informe o email..." required type="email"
+            />
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group" *ngIf="user.id===0" >
+            <label for="login">Login:</label>
+            <input class="form-control" name="login" [(ngModel)]="user.username" placeholder="Informe o Login..." required type="login"/>
+          </div>
+          <div class="form-group" *ngIf="user.id > 0" >
+            <label>Login:</label>
+            <h3><span class="label label-default" *ngIf="user.id > 0">{{user.username}}</span></h3>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="password">Senha: </label>
+            <input class="form-control" name="password" [(ngModel)]="user.password" placeholder="Informe a senha..." autocomplete="off" type="password"/>
+            <small id="emailHelp" class="form-text text-muted">Deixe em branco para não alterar a senha</small>
+          </div>
+        </div>
+
+      </div>
+      <div style="text-align: right;">
+        <button class="btn btn-success" (click)="save()" [disabled]="!form.valid">Enviar</button>
+        <button class="btn btn-default" (click)="cancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

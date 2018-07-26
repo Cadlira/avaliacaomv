@@ -1,0 +1,35 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="alert alert-success" *ngIf="okMsg">{{okMsg}}</div>
+  <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+  <div class="col-md-10">
+    <h1 class="page-header">
+      Usuários</h1>
+  </div>
+  <div class="col-md-2">
+    <a class="btn btn-primary btn-block" [routerLink]="['/user']"> Novo Usuário</a>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td>{{user.id}}</td>
+          <td>{{user.username}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>
+            <a class="btn btn-primary btn-group" [routerLink]="['/user',user.id]">Atualizar</a>
+            <a class="btn btn-danger btn-group" [routerLink]="['/user/delete',user.id]">Remover</a>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

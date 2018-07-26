@@ -1,0 +1,80 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath('com.bmuschko:gradle-docker-plugin:3.1.0')
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+group = 'lira.leo.mv'
+version = '1.0.0'
+sourceCompatibility = 1.8
+
+jar {
+	version = '1.0.0'
+	baseName = 'uaa-server'
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "http://repo.jenkins-ci.org/public" }
+}
+
+
+ext {
+	springCloudVersion = 'Finchley.RELEASE'
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+	compile('org.springframework.cloud:spring-cloud-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.retry:spring-retry')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.liquibase:liquibase-core')
+	compile('com.h2database:h2')
+	testCompile('org.springframework.boot:spring-boot-starter-test'){		
+		exclude group: 'com.jayway.jsonpath', module: 'json-path'
+	}
+	//Dependencias necessárias para o plugin do docker 
+	dockerJava('com.nirima:docker-java-shaded:0.16.2')
+	dockerJava('org.slf4j:slf4j-simple:1.7.5')
+    dockerJava('cglib:cglib:3.2.0')
+}
+
+task createDockerfile(type: com.bmuschko.gradle.docker.tasks.image.Dockerfile) {
+    destFile = project.file('Dockerfile')
+    from 'develar/java'
+    maintainer 'Leonardo Lira'
+    volume '/tmp'
+    addFile('build/libs/' + project.jar.baseName + '-' + project.version + '.jar', 'app.jar')
+    runCommand "touch /app.jar"
+    
+    entryPoint 'sh','-c','java \${JAVA_OPTS} -Dconfig.server.uri=\${CONFIG_SERVER_URL:-http://config-server:8888} -Dconfig.label=\${CONFIG_LABEL:-master} -Djava.security.egd=file:/dev/./urandom -jar /app.jar'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}

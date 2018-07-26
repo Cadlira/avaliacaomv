@@ -1,0 +1,55 @@
+version: '3'
+services:
+    config-server:
+        image: leolira/config-server
+        environment:
+            - 'CONFIG_GIT_URL=https://github.com/Cadlira/config.git'
+        ports:
+            - '8888:8888'
+        networks:
+            - mv_net
+    discovery-server:
+        image: leolira/discovery-server
+        depends_on:
+            - config-server
+        ports:
+            - '8761:8761'
+        networks:
+            - mv_net
+    uaa-server:
+        image: leolira/uaa-server
+        depends_on:
+            - config-server        
+            - discovery-server
+        ports:
+            - '9000:9000'
+        networks:
+            - mv_net            
+    user-rs:
+        image: leolira/user-rs
+        depends_on:
+            - config-server        
+            - discovery-server
+        ports:
+            - '8081:8081'
+        networks:
+            - mv_net                        
+    gateway-server:
+        image: leolira/gateway-server
+        depends_on:
+            - config-server
+            - discovery-server
+        ports:
+            - '3001:3001'
+        networks:
+            - mv_net            
+    web-ui:
+        image: leolira/web-ui
+        environment:
+            - 'API_URL=http://localhost:3001/'            
+        ports:
+            - '80:80'
+        networks:
+            - mv_net
+networks:
+    mv_net: 
