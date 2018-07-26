@@ -92,9 +92,9 @@ Para executar é necessário informar o endereço do servidor de gateway para a 
  - 'API_URL=http://localhost:3001/'  <-- Deve ser alterado para a url caso diferente.
 ```
 Por fim, navegar até a pasta que encontra-se o arquivo e executar o seguinte comando:
-`$ docker-compose up`
+```$ docker-compose up```
 ou
-`$ docker-compose up -d`
+```$ docker-compose up -d```
 Caso queiramos executar em background
 
 
