@@ -25,6 +25,12 @@ Dexando as desculpas de lado, vamos para o que não foi atendido:
 - **Swagger:** Apesar de está implementado no serviço user-rs, o mesmo não está 100% funcional, pois, embora esteja listando os serviços disponíveis, a execução do serviço pela interface está apresentando erro de autenticação.
 - **Internacionalização:** Mesmo já trabalhando com internacionalização i18n em todos os projetos, acabei não adicionado internacionalização nas interfaces WEB (uaa-server e web-ui). No uaa-server utilizaria a internacionalização através de JQuery i18n e no web-ui utilizaria a internacionalização do proprio angular [Angular i18n](https://angular.io/guide/i18n).
 
+### Problemas conhecidos
+Alguns problemas ocorrem durante a execução dos serviços e alguns deles são conhecidos e não consegui ou não tive tempo de resolver. São eles:
+
+- **ZUUL read timeout:** Esse erro ocorre na primeira execução de cada serviço, não me pergunte o por que. após o serviço executar uma vez ele apresenta esse erro. da segunda execução em diante ocorre sem maiores problemas.
+- **Revoke do token:** embora tenha implementado um método para invalidar o token do usuário no servidor de autenticação, por algum motivo, as vezes ele não invalidava e ainda causava um erro na web. Por esse motivo parei de executar esse método, desta forma, quando o usuário desloga na WEB UI ele volta para a tela de autorização. Para testar em sempre abro em uma janela anonima.
+
 ### Execução dos serviços
 Todos os serviços foram diponibilizados como imagens Docker publicadas no [Docker Hub](https://hub.docker.com/r/leolira/).
 
@@ -93,8 +99,13 @@ Para executar é necessário informar o endereço do servidor de gateway para a 
 ```
 Por fim, navegar até a pasta que encontra-se o arquivo e executar o seguinte comando:
 ```$ docker-compose up```
+
 ou
+
 ```$ docker-compose up -d```
 Caso queiramos executar em background
+
+
+Por fim basta acessar a url http://<servidor>:80.
 
 
